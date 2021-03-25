@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Profile</title>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&family=Ubuntu&display=swap" rel="stylesheet">
+
+<!-- CSS STYLE SHEETS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<link rel="stylesheet" href="css/styles.css">
+
+
+<!-- FONT AWESOME -->
+<script src="https://kit.fontawesome.com/2ca95c097a.js" crossorigin="anonymous"></script>
+
+
+<!-- BOOTSTRAP SCRIPT -->
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+
+
+<section class="navbarStyle">
+  <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+    <a class="navbar-brand" href="#"><h1 class="ml1">
+  <span class="text-wrapper">
+    <span class="line line1"></span>
+    <span class="letters">PLACIFY</span>
+    <span class="line line2"></span>
+  </span>
+</h1>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/">Home</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+</section>
+<br><br>
+<div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  <strong>You have Successfully signed up!!</strong>
+</div>
+
+<main class="form-signin" >
+<form style="padding-top: 25%;" action="/signup/profile" method="post">
+<h1 class="h3 mb-3 fw-normal">Profile</h1>
+<input type="text" name="NameSignup" class="form-control top" placeholder="Name"  autofocus>
+<input type="email" name="emailSignup" class="form-control middle" placeholder="Email" >
+<input type="date" class="form-control middle" name="dob">
+<input type="text" name="regnoSignup" class="form-control middle" placeholder="Registration Number" maxlength="9" >
+<input type="text" name="marks10" class="form-control middle" placeholder="10th %" >
+<input type="text" name="marks12" class="form-control middle" placeholder="12th %" >
+<select class="form-control middle" name="branch">
+        <option value="">Branch</option>
+        <option value="cse">CSE</option>
+        <option value="it">IT</option>
+        <option value="cce">CCE</option>
+        <option value="ece">ECE</option>
+      </select>
+<input type="text" name="cgpa" class="form-control bottom" placeholder="CGPA" >
+
+
+<button class="w-100 btn btn-lg btn-warning login-button" type="submit">Submit</button>
+<br>
+</form>
+</main>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="js/index.js" charset="utf-8"></script>
+  </body>
+</html>
