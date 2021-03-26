@@ -32,7 +32,7 @@ mongoose.set('useCreateIndex', true);
 const userSchema = new mongoose.Schema({
   name: String,
   regno: Number,
-  username: String,
+  email: String,
   password: String,
   dob: String,
   regno: Number,
@@ -42,7 +42,7 @@ const userSchema = new mongoose.Schema({
   cgpa: Number
 });
 
-userSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose);
 
 const User = new mongoose.model("User", userSchema);
 passport.use(User.createStrategy());
@@ -62,16 +62,10 @@ app.get("/login", function(req, res){
 
 app.get("/login/myoffers/:regno", function(req, res){
   const requestedRegno = req.params.regno;
-  if(req.isAuthenticated()){
-    User.findOne({regno: requestedRegno}, function(err, profile){
-     res.render("myoffers", {title: profile.regno});
-      });
-  }else{
-    res.redirect("/login");
-  }
+  User.findOne({regno: requestedRegno}, function(err, profile){
+   res.render("myoffers", {title: profile.regno});
 
-
-
+ });
 });
 
 
@@ -80,37 +74,31 @@ app.get("/login/profileoffers/:regno", function(req, res){
   if(req.isAuthenticated()){
     User.findOne({regno: requestedRegno}, function(err, profile){
      res.render("profileoffers", {title: profile.regno});
-     });
   }else{
     res.redirect("/login");
   }
 
 
-
+ });
 });
 
 
 app.get("/login/profile/:regno", function(req, res){
   const requestedRegno = req.params.regno;
-  if(req.isAuthenticated()){
-    User.findOne({regno: requestedRegno}, function(err, profile){
-     res.render("profile", {
-       title: profile.regno,
-       username: profile.name,
-       email: profile.username,
-       reg: profile.regno,
-       branch: profile.branch,
-       cgpa: profile.cgpa,
-       marks10: profile.marks10,
-       marks12: profile.marks12
-     });
 
+  User.findOne({regno: requestedRegno}, function(err, profile){
+   res.render("profile", {
+     title: profile.regno,
+     username: profile.name,
+     email: profile.email,
+     reg: profile.regno,
+     branch: profile.branch,
+     cgpa: profile.cgpa,
+     marks10: profile.marks10,
+     marks12: profile.marks12
    });
-  }else{
-    res.redirect("/login");
-  }
 
-
+ });
  });
 
 app.get("/signup", function(req, res){
@@ -124,7 +112,7 @@ app.get("/signup", function(req, res){
 
 app.get("/logout", function(req, res){
   req.logout();
-  res.redirect("/login");
+  res.redirect("/");
 });
 //
 // app.get("/signup/profile", function(req, res){
@@ -137,7 +125,7 @@ app.post("/signup", function(req, res){
   // const email = req.body.email;
   // const password = req.body.password;
 
-  User.register({username: req.body.username, regno: req.body.regno, name: req.body.Name}, req.body.password, function(err, user){
+  User.register({username: req.body.username}, req.body.password, function(err, user){
     if(err){
       console.log(err);
       res.redirect("/");
@@ -178,31 +166,19 @@ app.post("/signup/profile", function(req, res){
 });
 
 app.post("/login/profile", function(req, res){
+  const secret = new User(
+  {
+    username: req.body.username,
+    password: req.body.password
+  });
 
-User.findOne({username: req.body.username}, function(err, foundUser){
-
-    if(foundUser){
-    const user = new User({
-      username: req.body.username,
-      password: req.body.password
-    });
-
-      passport.authenticate("local", function(err, user){
-        if(err){
-          console.log(err);
-        } else {
-
-          if(user){
-            req.login(user, function(err){
-            res.redirect("/login/profileoffers/"+foundUser.regno);
-            });
-          } else {
-            res.render("loginfail", {title: "Incorrect Password"});
-          }
-        }
-      })(req, res);
-    } else {
-      res.render("loginfail", {title: "This Username does not Exist"});
+  req.login(secret, function(err){
+    if(err){
+      console.log(err);
+    }else{
+      passport.authenticate("local")(req, res, function(){
+          res.redirect("/login/profileoffers/189303074");
+      });
     }
   });
 });
@@ -218,7 +194,7 @@ app.post("/login/profile/submit", function(req, res){
 
   User.findOne({regno: regno}, function(err, foundUser){
     foundUser.name = name;
-    foundUser.username = email;
+    foundUser.email = email;
     foundUser.branch = branch;
     foundUser.marks10 = profile10;
     foundUser.marks12 = profile12;
