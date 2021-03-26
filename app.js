@@ -41,13 +41,41 @@ app.get("/login", function(req, res){
   res.sendFile(__dirname + "/login.html");
 });
 
-app.get("/login/profile", function(req, res){
-  res.sendFile(__dirname + "/profile.html");
+app.get("/login/myoffers/:regno", function(req, res){
+  const requestedRegno = req.params.regno;
+  User.findOne({regno: requestedRegno}, function(err, profile){
+   res.render("myoffers", {title: profile.regno});
+
+ });
 });
 
-app.get("/login/profile/offers", function(req, res){
-  res.sendFile(__dirname + "/offers.html");
+
+app.get("/login/profileoffers/:regno", function(req, res){
+  const requestedRegno = req.params.regno;
+  User.findOne({regno: requestedRegno}, function(err, profile){
+   res.render("profileoffers", {title: profile.regno});
+
+ });
 });
+
+
+app.get("/login/profile/:regno", function(req, res){
+  const requestedRegno = req.params.regno;
+
+  User.findOne({regno: requestedRegno}, function(err, profile){
+   res.render("profile", {
+     title: profile.regno,
+     username: profile.name,
+     email: profile.email,
+     reg: profile.regno,
+     branch: profile.branch,
+     cgpa: profile.cgpa,
+     marks10: profile.marks10,
+     marks12: profile.marks12
+   });
+
+ });
+ });
 
 app.get("/signup", function(req, res){
   res.sendFile(__dirname + "/signup.html");
@@ -102,7 +130,7 @@ app.post("/signup/profile", function(req, res){
         foundUser.branch = branch;
         foundUser.cgpa = cgpa;
         foundUser.save(function(){
-            res.sendFile(__dirname + "/profile.html");
+            res.redirect("/login/profileoffers/"+regno);
         });
       }
     }
@@ -120,18 +148,35 @@ app.post("/login/profile", function(req, res){
       if(foundUser){
         bcrypt.compare(password, foundUser.password, function(err, result) {
             if(result === true){
-              res.sendFile(__dirname + "/profile.html");
+              res.redirect("/login/profileoffers/"+foundUser.regno);
             }else{
-              res.send("invalid");
+              res.render("loginfail", {title: "Incorrect Password"});
             }
            });
-      }
+      }else{res.render("loginfail", {title: "This Username does not Exist"});}
     }
   });
 });
 
-app.post("/signup/profile", function(req, res){
-  res.sendFile(__dirname + "/profile.html");
+app.post("/login/profile/submit", function(req, res){
+  const regno = req.body.profileReg;
+  const profile10 = req.body.profile10;
+  const name = req.body.profileName;
+  const email = req.body.profileEmail;
+  const branch = req.body.profileBranch;
+  const cgpa = req.body.profileCGPA;
+  const profile12 = req.body.profile12;
+
+  User.findOne({regno: regno}, function(err, foundUser){
+    foundUser.name = name;
+    foundUser.email = email;
+    foundUser.branch = branch;
+    foundUser.marks10 = profile10;
+    foundUser.marks12 = profile12;
+    foundUser.cgpa = cgpa;
+    foundUser.save();
+    res.redirect("/login/profile/"+regno);
+  });
 });
 
 app.listen(3000, function() {
