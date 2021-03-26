@@ -10,18 +10,26 @@ const passportLocalMongoose = require("passport-local-mongoose");
 
 const app = express();
 app.set('view engine', 'ejs');
+app.set('trust proxy', 1);
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static("public"));
 
+app.use(function(req, res, next) {
+  res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+  next();
+});
+
 app.use(session({
   secret: "Our little secret.",
   resave: false,
-  saveUninitialized: false,
+  saveUninitialized: false
 }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+
 
 mongoose.connect('mongodb://localhost:27017/userDB', {useNewUrlParser: true, useUnifiedTopology: true});
 
@@ -122,9 +130,10 @@ app.get("/signup", function(req, res){
 
 });
 
-app.get("/logout", function(req, res){
-  req.logout();
+app.get('/logout',(req,res)=>{
+  req.session.destroy();
   res.redirect("/login");
+
 });
 //
 // app.get("/signup/profile", function(req, res){
@@ -169,7 +178,7 @@ app.post("/signup/profile", function(req, res){
         foundUser.branch = branch;
         foundUser.cgpa = cgpa;
         foundUser.save(function(){
-            res.redirect("/login/profileoffers/"+regno);
+            res.redirect("/login/profileoffers/"+foundUser.regno);
         });
       }
     }
