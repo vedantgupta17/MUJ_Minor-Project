@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>My Dashboard</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&family=Ubuntu&display=swap" rel="stylesheet">
+
+  <!-- CSS STYLE SHEETS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- FONT AWESOME -->
+  <script src="https://kit.fontawesome.com/2ca95c097a.js" crossorigin="anonymous"></script>
+
+
+  <!-- BOOTSTRAP SCRIPT -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+  <section class="navbarStyle">
+    <!-- Nav Bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+      <a class="navbar-brand" href="#">
+        <h1 class="ml1">
+          <span class="text-wrapper">
+            <span class="line line1"></span>
+            <span class="letters">PLACIFY</span>
+            <span class="line line2"></span>
+          </span>
+        </h1>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+      </a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/admin_login/profiles">Profiles</a>
+          </li>
+        </ul>
+        <button type="button" class="btn btn-danger"><a class="sign-out" href="/super_user/admin_login"><i class="fas fa-sign-out-alt"></i></a></i> </button>
+
+
+      </div>
+    </nav>
+  </section>
+
+  <div class="container-fluid mt-2 mb-5">
+
+      <div class="container-fluid">
+        <!-- Body -->
+        <div class="header-body mt-2 mb-5">
+          <div class="row align-items-end">
+
+            <div class="col mb-3 ml-n3 ml-md-n2">
+              <!-- Pretitle -->
+              <!-- Title -->
+              <h1 class="header-title"><%= username %></h1>
+            </div>
+            <div class="col-12 col-md-auto mt-2 mb-5">
+              <!-- Button --><a class="btn btn-primary d-block d-md-inline-block lift" onclick="myFunction()">Edit</a>
+            </div>
+          </div> <!-- / .row -->
+          <div class="row align-items-center mt-3">
+            <div class="col">
+              <!-- Nav -->
+            </div>
+          </div>
+        </div> <!-- / .header-body -->
+      </div>
+    </div>
+    <div class="card-body" style="margin: auto; width: 50%;">
+      <h2 class="font-weight-light">Your Profile </h2>
+      <hr>
+      <form class="mt-3" action="/login/profile/submit" method="post">
+        <div class="form-group row align-items-center"><label class="col-3">Name</label>
+          <div class="col"><input type="text" value="<%= username %>" name="profileName" required class="form-control" readonly /></div>
+        </div>
+        <div class="form-group row align-items-center"><label class="col-3">Email</label>
+          <div class="col"><input type="email" value="<%= email %>" name="profileEmail" required class="form-control" readonly /></div>
+        </div>
+        <div class="form-group row align-items-center"><label class="col-3">Registration Number</label>
+          <div class="col"><input type="text" value="<%= reg %>" name="profileReg" class="form-control" id="regper" readonly /></div>
+        </div>
+        <div class="form-group row align-items-center"><label class="col-3">Branch</label>
+          <div class="col"><input type="text" value="<%= branch %>" name="profileBranch" class="form-control" readonly /></div>
+        </div>
+        <div class="form-group row align-items-center"><label class="col-3">CGPA</label>
+          <div class="col"><input type="text" value="<%= cgpa %>" name="profileCGPA" class="form-control" readonly /></div>
+        </div>
+        <div class="form-group row align-items-center"><label class="col-3">10th CGPA</label>
+          <div class="col"><input type="text" value="<%= marks10 %>" name="profile10" class="form-control" readonly /></div>
+        </div>
+        <div class="form-group row align-items-center"><label class="col-3">12th %</label>
+          <div class="col"><input type="text" value="<%= marks12 %>" name="profile12" class="form-control" readonly /></div>
+        </div>
+
+
+
+
+        <div class="form-group row"><label class="col-3">Interest Fields</label>
+          <div class="col"><textarea placeholder="Tell us a little about your Interest Fields" name="profile-bio" rows="4" class="form-control"></textarea></div>
+        </div>
+        <div class="form-group row"><label class="col-3">Marksheet</label>
+          <div class="col">
+            <div class="custom-file"><input type="file" id="validatedCustomFile" class="custom-file-input" /><label for="validatedCustomFile" class="custom-file-label">Choose
+                file...</label>
+              <div class="invalid-feedback">Example invalid custom file feedback</div>
+            </div>
+          </div>
+        </div>
+        <div class=" justify-content-center mt-4"><button type="submit" class="btn btn-primary"><b>Save Changes</b></button></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    function myFunction() {
+      var x = document.getElementsByClassName("form-control");
+      // x[0].readOnly = false;
+      for(var i=0;i<x.length;i++){
+        x[i].readOnly = false;
+      }
+    document.getElementById("regper").readOnly=true;
+    }
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="/js/index.js" charset="utf-8"></script>
+</body>
+
+</html>

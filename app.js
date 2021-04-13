@@ -68,6 +68,10 @@ app.get("/login", function(req, res){
   res.sendFile(__dirname + "/login.html");
 });
 
+app.get("/super_user/admin_login", function(req, res){
+  res.sendFile(__dirname + "/admin_login.html");
+});
+
 app.get("/login/myoffers/:regno", function(req, res){
   const requestedRegno = req.params.regno;
   if(req.isAuthenticated()){
@@ -119,6 +123,40 @@ app.get("/login/profile/:regno", function(req, res){
   }
 
 
+ });
+
+ app.get("/admin_login/profiles", function(req, res){
+  
+    User.find({}, function(err, foundUsers){
+      res.render("profiles_admin", {users: foundUsers})
+    });
+  
+});
+
+app.get("/admin_login/offers", function(req, res){
+  
+    res.render("offers_admin");
+
+
+});
+
+
+ app.get("/admin_login/profile/:regno", function(req, res){
+  const requestedRegno = req.params.regno;
+ 
+    User.findOne({regno: requestedRegno}, function(err, profile){
+     res.render("profile_admin", {
+       title: profile.regno,
+       username: profile.name,
+       email: profile.username,
+       reg: profile.regno,
+       branch: profile.branch,
+       cgpa: profile.cgpa,
+       marks10: profile.marks10,
+       marks12: profile.marks12
+     });
+
+   });
  });
 
 app.get("/signup", function(req, res){
@@ -235,6 +273,17 @@ app.post("/login/profile/submit", function(req, res){
     foundUser.save();
     res.redirect("/login/profile/"+regno);
   });
+});
+
+app.post("/admin_login/profiles", function(req, res){
+  const username = req.body.username;
+  const password = req.body.password;
+  if (username == "admin@gmail.com" && password == "admin")
+  {
+    User.find({}, function(err, foundUsers){
+      res.render("profiles_admin", {users: foundUsers})
+    });
+  }
 });
 
 app.listen(3000, function() {

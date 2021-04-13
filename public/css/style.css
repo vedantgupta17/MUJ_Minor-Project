@@ -147,6 +147,11 @@
 	min-height: 20px;
 }
 
+.login-button{
+	background-color: #810000;
+	color: #fff;
+  }
+
 @media only screen and (max-width: 400px) {
 	.avatar-xxl img {
 		height: auto;

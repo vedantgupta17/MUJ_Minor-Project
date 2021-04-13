@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>My Dashboard</title>
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&family=Ubuntu&display=swap" rel="stylesheet">
+
+  <!-- CSS STYLE SHEETS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="/css/style.css">
+
+
+  <!-- FONT AWESOME -->
+  <script src="https://kit.fontawesome.com/2ca95c097a.js" crossorigin="anonymous"></script>
+
+
+  <!-- BOOTSTRAP SCRIPT -->
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <section class="navbarStyle">
+        <!-- Nav Bar -->
+          <nav class="navbar navbar-expand-lg navbar-dark">
+          <a class="navbar-brand" href="#"><h1 class="ml1">
+        <span class="text-wrapper">
+          <span class="line line1"></span>
+          <span class="letters">PLACIFY</span>
+          <span class="line line2"></span>
+        </span>
+      </h1>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                  <a class="nav-link" href="/admin_login/offers">Offers</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Profiles</a>
+                  </li>
+                </ul>
+           
+              <button type="button" class="btn btn-danger"><a class="sign-out" href="/super_user/admin_login"><i class="fas fa-sign-out-alt"></i></a></i> </button>
+
+
+            </div>
+          </nav>
+    </section>
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="text-center pt-3">
+                        <h2 class="mb-5">All Profiles</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="input-group rounded" style="width: 300px; margin: auto;">
+                <input type="search"  class="form-control rounded" placeholder="Search" aria-label="Search"
+                  aria-describedby="search-addon" />
+                <span class="input-group-text border-0" id="search-addon">
+                  <i class="fas fa-search"></i>
+                </span>
+              </div>
+              <br><br>
+            <div class="row">
+            <%  users.forEach(function(user){ %>
+
+              
+                
+                    <div class="col-lg-4 col-md-6 mb-5">
+                        <a href="/admin_login/profile/<%=user.regno%>" class="card text-center text-decoration-none h-100 feature-card-1">
+                            <div class="card-body py-5">
+                                <div class="icon-bg icon-bg-lg bg-orange text-light mb-4">
+                                    <i class="fas fa-user-alt"></i>
+                                </div>
+    
+                                <h5 id="irzws-3"><%= user.name %> </h5>
+                                <p class="card-text small text-secondary">
+                                <%= user.username %> </p>
+                            </div>
+                            <div>
+                                <button type="button"  class="btn btn-dark login-button">Offers</button>
+                                <button type="button" style="margin-left: 30px;" class="btn btn-dark login-button">Delete</button>
+                                
+                            </div> 
+                        </a>
+                    </div>
+            
+            
+                <% }) %>
+            </div>
+            
+    </section>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="/js/index.js" charset="utf-8"></script>
+</body>
+
+</html>
